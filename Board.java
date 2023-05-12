@@ -98,7 +98,7 @@ public class Board {
                     enemy.killed();
                     nextFrontLeftTile.addPiece();
                     piece.editRowCol(row+2, col-2);
-                    if(row+1 >= 7) {
+                    if(row+2 >= 7) {
                         piece.crowned();
                     }
                 } else if(tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
@@ -108,7 +108,7 @@ public class Board {
                     enemy.killed();
                     nextFrontRightTile.addPiece();
                     piece.editRowCol(row+2, col+2);
-                    if(row+1 >= 7) {
+                    if(row+2 >= 7) {
                         piece.crowned();
                     }
                 }
@@ -190,7 +190,7 @@ public class Board {
                     enemy.killed();
                     nextFrontLeftTile.addPiece();
                     piece.editRowCol(row - 2, col - 2);
-                    if (row - 1 <= 0) {
+                    if (row - 2 <= 0) {
                         piece.crowned();
                     }
                 } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
@@ -200,7 +200,7 @@ public class Board {
                     enemy.killed();
                     nextFrontRightTile.addPiece();
                     piece.editRowCol(row - 2, col + 2);
-                    if (row - 1 <= 0) {
+                    if (row - 2 <= 0) {
                         piece.crowned();
                     }
                 }
