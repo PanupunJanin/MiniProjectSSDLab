@@ -2,6 +2,7 @@ public class Board {
     private final int size;
     private Tile [][] tiles;
     private Piece[] pieces;
+    private static Piece lastMovedPiece;
     public final int maxPieceAmount = 24;
     private int currentPieceNumber = 0;
     public Board(int size) {
@@ -67,215 +68,242 @@ public class Board {
                 }
             }
         }
+        lastMovedPiece = pieces[maxPieceAmount-1];
     }
     public void movePiece(int row, int col, Tile tileToMove) {
         Tile currentTile = getTile(row, col);
         Piece piece = getPiece(row, col);
-        if(piece.isWhite()){
-            Tile frontLeftTile = getTile(row+1, col-1);
-            Tile frontRightTile = getTile(row+1, col+1);
-            Tile nextFrontLeftTile = getTile(row+2, col-2);
-            Tile nextFrontRightTile = getTile(row+2, col+2);
-            if(!piece.isKing()) {
-                if(tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row+1, col-1);
-                    if(row+1 >= 7) {
-                        piece.crowned();
-                    }
-                } else if(tileToMove == frontRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row+1, col+1);
-                    if(row+1 >= 7) {
-                        piece.crowned();
-                    }
-                } else if(tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+        if(piece.isWhite() != lastMovedPiece.isWhite()) {
+            if(piece.isWhite()){
+                Tile frontLeftTile = getTile(row+1, col-1);
+                Tile frontRightTile = getTile(row+1, col+1);
+                Tile nextFrontLeftTile = getTile(row+2, col-2);
+                Tile nextFrontRightTile = getTile(row+2, col+2);
+                if(!piece.isKing()) {
+                    if(tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        frontLeftTile.removePiece();
-                        enemy.killed();
-                        nextFrontLeftTile.addPiece();
-                        piece.editRowCol(row+2, col-2);
-                        if(row+2 >= 7) {
+                        tileToMove.addPiece();
+                        piece.editRowCol(row+1, col-1);
+                        lastMovedPiece = piece;
+                        if(row+1 >= 7) {
                             piece.crowned();
                         }
-                    }
-                } else if(tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                    } else if(tileToMove == frontRightTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        frontRightTile.removePiece();
-                        enemy.killed();
-                        nextFrontRightTile.addPiece();
-                        piece.editRowCol(row+2, col+2);
-                        if(row+2 >= 7) {
+                        tileToMove.addPiece();
+                        piece.editRowCol(row+1, col+1);
+                        lastMovedPiece = piece;
+                        if(row+1 >= 7) {
                             piece.crowned();
                         }
-                    }
-                }
-            } else {
-                Tile backLeftTile = getTile(row - 1, col - 1);
-                Tile backRightTile = getTile(row - 1, col + 1);
-                Tile nextBackLeftTile = getTile(row - 2, col + 2);
-                Tile nextBackRightTile = getTile(row - 2, col + 2);
-                if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row + 1, col - 1);
-                } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row + 1, col + 1);
-                } else if (tileToMove == backLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col - 1);
-                } else if (tileToMove == backRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col + 1);
-                } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
-                        currentTile.removePiece();
-                        frontLeftTile.removePiece();
-                        enemy.killed();
-                        nextFrontLeftTile.addPiece();
-                        piece.editRowCol(row+2, col-2);
-                    }
-                } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
-                        currentTile.removePiece();
-                        frontRightTile.removePiece();
-                        enemy.killed();
-                        nextFrontRightTile.addPiece();
-                        piece.editRowCol(row+2, col+2);
-                    }
-                }else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
-                        currentTile.removePiece();
-                        backLeftTile.removePiece();
-                        enemy.killed();
-                        nextBackLeftTile.addPiece();
-                        piece.editRowCol(row-2, col-2);
-                    }
-                } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
-                        currentTile.removePiece();
-                        backRightTile.removePiece();
-                        enemy.killed();
-                        nextBackRightTile.addPiece();
-                        piece.editRowCol(row-2, col+2);
-                    }
-                }
-            }
-        } else {
-            Tile frontLeftTile = getTile(row - 1, col - 1);
-            Tile frontRightTile = getTile(row - 1, col + 1);
-            Tile nextFrontLeftTile = getTile(row - 2, col - 2);
-            Tile nextFrontRightTile = getTile(row - 2, col + 2);
-            if (!piece.isKing()) {
-                if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col - 1);
-                    if (row - 1 <= 0) {
-                        piece.crowned();
-                    }
-                } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col + 1);
-                    if (row - 1 <= 0) {
-                        piece.crowned();
-                    }
-                } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
-                        currentTile.removePiece();
-                        frontLeftTile.removePiece();
-                        enemy.killed();
-                        nextFrontLeftTile.addPiece();
-                        piece.editRowCol(row - 2, col - 2);
-                        if (row - 2 <= 0) {
-                            piece.crowned();
+                    } else if(tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontLeftTile.removePiece();
+                            enemy.killed();
+                            nextFrontLeftTile.addPiece();
+                            piece.editRowCol(row+2, col-2);
+                            lastMovedPiece = piece;
+                            if(row+2 >= 7) {
+                                piece.crowned();
+                            }
+                        }
+                    } else if(tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontRightTile.removePiece();
+                            enemy.killed();
+                            nextFrontRightTile.addPiece();
+                            piece.editRowCol(row+2, col+2);
+                            lastMovedPiece = piece;
+                            if(row+2 >= 7) {
+                                piece.crowned();
+                            }
                         }
                     }
-                } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                } else {
+                    Tile backLeftTile = getTile(row - 1, col - 1);
+                    Tile backRightTile = getTile(row - 1, col + 1);
+                    Tile nextBackLeftTile = getTile(row - 2, col + 2);
+                    Tile nextBackRightTile = getTile(row - 2, col + 2);
+                    if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        frontRightTile.removePiece();
-                        enemy.killed();
-                        nextFrontRightTile.addPiece();
-                        piece.editRowCol(row - 2, col + 2);
-                        if (row - 2 <= 0) {
-                            piece.crowned();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row + 1, col - 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
+                        currentTile.removePiece();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row + 1, col + 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == backLeftTile && !tileToMove.hasPiece()) {
+                        currentTile.removePiece();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col - 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == backRightTile && !tileToMove.hasPiece()) {
+                        currentTile.removePiece();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col + 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontLeftTile.removePiece();
+                            enemy.killed();
+                            nextFrontLeftTile.addPiece();
+                            piece.editRowCol(row+2, col-2);
+                            lastMovedPiece = piece;
+                        }
+                    } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontRightTile.removePiece();
+                            enemy.killed();
+                            nextFrontRightTile.addPiece();
+                            piece.editRowCol(row+2, col+2);
+                            lastMovedPiece = piece;
+                        }
+                    }else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            backLeftTile.removePiece();
+                            enemy.killed();
+                            nextBackLeftTile.addPiece();
+                            piece.editRowCol(row-2, col-2);
+                            lastMovedPiece = piece;
+                        }
+                    } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            backRightTile.removePiece();
+                            enemy.killed();
+                            nextBackRightTile.addPiece();
+                            piece.editRowCol(row-2, col+2);
+                            lastMovedPiece = piece;
                         }
                     }
                 }
             } else {
-                Tile backLeftTile = getTile(row + 1, col - 1);
-                Tile backRightTile = getTile(row + 1, col + 1);
-                Tile nextBackLeftTile = getTile(row + 2, col + 2);
-                Tile nextBackRightTile = getTile(row + 2, col + 2);
-                if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col - 1);
-                } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row - 1, col + 1);
-                } else if (tileToMove == backLeftTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row + 1, col - 1);
-                } else if (tileToMove == backRightTile && !tileToMove.hasPiece()) {
-                    currentTile.removePiece();
-                    tileToMove.addPiece();
-                    piece.editRowCol(row + 1, col + 1);
-                } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                Tile frontLeftTile = getTile(row - 1, col - 1);
+                Tile frontRightTile = getTile(row - 1, col + 1);
+                Tile nextFrontLeftTile = getTile(row - 2, col - 2);
+                Tile nextFrontRightTile = getTile(row - 2, col + 2);
+                if (!piece.isKing()) {
+                    if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        frontLeftTile.removePiece();
-                        enemy.killed();
-                        nextFrontLeftTile.addPiece();
-                        piece.editRowCol(row - 2, col - 2);
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col - 1);
+                        lastMovedPiece = piece;
+                        if (row - 1 <= 0) {
+                            piece.crowned();
+                        }
+                    } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
+                        currentTile.removePiece();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col + 1);
+                        lastMovedPiece = piece;
+                        if (row - 1 <= 0) {
+                            piece.crowned();
+                        }
+                    } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontLeftTile.removePiece();
+                            enemy.killed();
+                            nextFrontLeftTile.addPiece();
+                            piece.editRowCol(row - 2, col - 2);
+                            lastMovedPiece = piece;
+                            if (row - 2 <= 0) {
+                                piece.crowned();
+                            }
+                        }
+                    } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontRightTile.removePiece();
+                            enemy.killed();
+                            nextFrontRightTile.addPiece();
+                            piece.editRowCol(row - 2, col + 2);
+                            lastMovedPiece = piece;
+                            if (row - 2 <= 0) {
+                                piece.crowned();
+                            }
+                        }
                     }
-                } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row-1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                } else {
+                    Tile backLeftTile = getTile(row + 1, col - 1);
+                    Tile backRightTile = getTile(row + 1, col + 1);
+                    Tile nextBackLeftTile = getTile(row + 2, col + 2);
+                    Tile nextBackRightTile = getTile(row + 2, col + 2);
+                    if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        frontRightTile.removePiece();
-                        enemy.killed();
-                        nextFrontRightTile.addPiece();
-                        piece.editRowCol(row - 2, col + 2);
-                    }
-                } else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col-1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col - 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == frontRightTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        backLeftTile.removePiece();
-                        enemy.killed();
-                        nextBackLeftTile.addPiece();
-                        piece.editRowCol(row + 2, col - 2);
-                    }
-                } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
-                    Piece enemy = getPiece(row+1, col+1);
-                    if(piece.isWhite() != enemy.isWhite()) {
+                        tileToMove.addPiece();
+                        piece.editRowCol(row - 1, col + 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == backLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
-                        backRightTile.removePiece();
-                        enemy.killed();
-                        nextBackRightTile.addPiece();
-                        piece.editRowCol(row + 2, col + 2);
+                        tileToMove.addPiece();
+                        piece.editRowCol(row + 1, col - 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == backRightTile && !tileToMove.hasPiece()) {
+                        currentTile.removePiece();
+                        tileToMove.addPiece();
+                        piece.editRowCol(row + 1, col + 1);
+                        lastMovedPiece = piece;
+                    } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontLeftTile.removePiece();
+                            enemy.killed();
+                            nextFrontLeftTile.addPiece();
+                            piece.editRowCol(row - 2, col - 2);
+                            lastMovedPiece = piece;
+                        }
+                    } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row-1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            frontRightTile.removePiece();
+                            enemy.killed();
+                            nextFrontRightTile.addPiece();
+                            piece.editRowCol(row - 2, col + 2);
+                            lastMovedPiece = piece;
+                        }
+                    } else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col-1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            backLeftTile.removePiece();
+                            enemy.killed();
+                            nextBackLeftTile.addPiece();
+                            piece.editRowCol(row + 2, col - 2);
+                            lastMovedPiece = piece;
+                        }
+                    } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
+                        Piece enemy = getPiece(row+1, col+1);
+                        if(piece.isWhite() != enemy.isWhite()) {
+                            currentTile.removePiece();
+                            backRightTile.removePiece();
+                            enemy.killed();
+                            nextBackRightTile.addPiece();
+                            piece.editRowCol(row + 2, col + 2);
+                            lastMovedPiece = piece;
+                        }
                     }
                 }
             }
@@ -304,4 +332,5 @@ public class Board {
         }
         return 0; // Return 0 = Game not over yet
     }
+    public boolean getCurrentTurn() { return !lastMovedPiece.isWhite(); }
 }
