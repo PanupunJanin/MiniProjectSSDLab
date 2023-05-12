@@ -80,6 +80,7 @@ public class Game extends JFrame{
                     paintPiece(g, row, col);
                 }
             }
+            this.paint_winner(g);
         }
 
         private void paintTile(Graphics g, int row, int col) {
@@ -307,6 +308,19 @@ public class Game extends JFrame{
                 }
             }
         }
+
+        private void paint_winner(Graphics g) {
+            if(board.checkGameEnd() != 0){
+            g.setColor(Color.red);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+            if (board.checkGameEnd() == 2) {
+                g.drawString("White Wins!", 275, 400);
+            } else if (board.checkGameEnd() == 1) {
+                g.drawString("Black Wins!", 275, 400);
+            }
+            }
+        }
+
     }
     public static void main(String[] args) {
         new Game();
