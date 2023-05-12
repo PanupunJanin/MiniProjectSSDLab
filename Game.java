@@ -47,9 +47,9 @@ public class Game extends JFrame{
                     System.out.println("Has piece: " + tile.hasPiece());
                     if(tile.hasPiece()){
                         System.out.println("Piece is white: " + piece.isWhite());
-                        System.out.println("Current piece row: " + piece.row());
-                        System.out.println("Current piece col: " + piece.col());
-                        System.out.println("Current piece num: " + piece.num());
+                        System.out.println("Current piece row: " + piece.currentRow());
+                        System.out.println("Current piece col: " + piece.currentCol());
+                        System.out.println("Current piece num: " + piece.pieceNumber());
                     }
                 }
             });

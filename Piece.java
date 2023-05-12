@@ -5,8 +5,8 @@ public class Piece {
     private boolean isKing;
     private boolean isWhite;
     private boolean canMove;
-    public int currentRow;
-    public int currentCol;
+    private int currentRow;
+    private int currentCol;
     private final int pieceNumber;
     public Piece(int row, int col, int number) {
         currentRow = row;
@@ -17,9 +17,9 @@ public class Piece {
         isWhite = true;
         canMove = false;
     }
-    public int row() { return currentRow; }
-    public int col() { return currentCol; }
-    public int num() { return pieceNumber; }
+    public int currentRow() { return currentRow; }
+    public int currentCol() { return currentCol; }
+    public int pieceNumber() { return pieceNumber; }
     public boolean isAlive() { return isAlive; }
     public boolean isKing() { return isKing; }
     public boolean isWhite() {
@@ -38,4 +38,8 @@ public class Piece {
         this.isWhite = false;
     }
     public void enableMove() { this.canMove = true; }
+    public void editRowCol(int newRow, int newCol) {
+        this.currentRow = newRow;
+        this.currentCol = newCol;
+    }
 }
