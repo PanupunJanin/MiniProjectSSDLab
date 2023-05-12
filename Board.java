@@ -157,9 +157,9 @@ public class Board {
             }
         }
         if(whiteCount <= 0) {
-            return 1; // Return 1 = White win
+            return 1; // Return 1 = White is winner
         } else if(blackCount <= 0) {
-            return 2; // Return 2 = Black win
+            return 2; // Return 2 = Black is winner
         }
         return 0; // Return 0 = Game not over yet
     }
