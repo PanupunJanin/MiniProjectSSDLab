@@ -58,8 +58,7 @@ public class Game extends JFrame{
                         System.out.println("------------------------------------------------");
                         currentRow = e.getY() / TileSize;
                         currentCol = e.getX() / TileSize;
-                        Tile currentTile = board.getTile(currentRow, currentCol);
-                        markMoveableTile(currentRow, currentCol, currentTile);
+                        markMovableTile(currentRow, currentCol);
                         repaint();
                     } else {
                         int tileRow = e.getY() / TileSize;
@@ -98,31 +97,31 @@ public class Game extends JFrame{
             }
         }
 
-        private void markMoveableTile(int row, int col, Tile tileToMove) {
+        private void markMovableTile(int row, int col) {
             Piece piece = board.getPiece(row, col);
             if(piece.isWhite()){
                 if (col == 0) {
                     Tile frontRightTile = board.getTile(row+1, col+1);
-                    if (frontRightTile.hasPiece() == false) {
+                    if (!frontRightTile.hasPiece()) {
                         frontRightTile.setEnableMove(true);
                     } else {
                         Piece checkPiece = board.getPiece(row+1, col+1);
-                        if (checkPiece.isWhite() == false) {
+                        if (!checkPiece.isWhite()) {
                             Tile nextFrontRightTile = board.getTile(row+2, col+2);
-                            if (nextFrontRightTile.hasPiece() == false) {
+                            if (!nextFrontRightTile.hasPiece()) {
                                 nextFrontRightTile.setEnableMove(true);
                             }
                         }
                     }
                 } else if (col == 7) {
                     Tile frontLeftTile = board.getTile(row+1, col-1);
-                    if (frontLeftTile.hasPiece() == false) {
+                    if (!frontLeftTile.hasPiece()) {
                         frontLeftTile.setEnableMove(true);
                     } else {
                         Piece checkPiece = board.getPiece(row+1, col-1);
-                        if (checkPiece.isWhite() == false) {
+                        if (!checkPiece.isWhite()) {
                             Tile nextFrontLeftTile = board.getTile(row+2, col-2);
-                            if (nextFrontLeftTile.hasPiece() == false) {
+                            if (!nextFrontLeftTile.hasPiece()) {
                                 nextFrontLeftTile.setEnableMove(true);
                             }
                         }
@@ -130,35 +129,35 @@ public class Game extends JFrame{
                 } else {
                     Tile frontLeftTile = board.getTile(row+1, col-1);
                     Tile frontRightTile = board.getTile(row+1, col+1);
-                    if (frontRightTile.hasPiece() == false && frontLeftTile.hasPiece() == false){
+                    if (!frontRightTile.hasPiece() && !frontLeftTile.hasPiece()){
                         frontLeftTile.setEnableMove(true);
                         frontRightTile.setEnableMove(true);
-                    } else if  (frontRightTile.hasPiece() == false && frontLeftTile.hasPiece() == true){
+                    } else if  (!frontRightTile.hasPiece() && frontLeftTile.hasPiece()){
                         Piece checkPiece = board.getPiece(row+1, col-1);
-                        if (checkPiece.isWhite() == false) {
+                        if (!checkPiece.isWhite()) {
                             Tile nextFrontLeftTile = board.getTile(row+2, col-2);
-                            if (nextFrontLeftTile.hasPiece() == false) {
+                            if (!nextFrontLeftTile.hasPiece()) {
                                 nextFrontLeftTile.setEnableMove(true);
                                 frontRightTile.setEnableMove(true);
                             } 
                         }
                         frontRightTile.setEnableMove(true);
-                    } else if (frontRightTile.hasPiece() == true && frontLeftTile.hasPiece() == false) {
+                    } else if (frontRightTile.hasPiece() && !frontLeftTile.hasPiece()) {
                         Piece checkPiece = board.getPiece(row+1, col+1);
-                        if (checkPiece.isWhite() == false) {
+                        if (!checkPiece.isWhite()) {
                             Tile nextFrontRightTile = board.getTile(row+2, col+2);
-                            if (nextFrontRightTile.hasPiece() == false) {
+                            if (!nextFrontRightTile.hasPiece()) {
                                 frontLeftTile.setEnableMove(true);
                                 nextFrontRightTile.setEnableMove(true);
                             }
                         }
                         frontLeftTile.setEnableMove(true);
-                    } else if (frontRightTile.hasPiece() == false && frontLeftTile.hasPiece() == false) {
+                    } else if (!frontRightTile.hasPiece() && !frontLeftTile.hasPiece()) {
                         Tile nextFrontLeftTile = board.getTile(row+2, col-2);
                         Tile nextFrontRightTile = board.getTile(row+2, col+2);
                         Piece checkPiece1 = board.getPiece(row+2, col-2);
                         Piece checkPiece2 = board.getPiece(row+2, col+2);
-                        if (checkPiece1.isWhite() == false && checkPiece2.isWhite() == false) {
+                        if (!checkPiece1.isWhite() && !checkPiece2.isWhite()) {
                             nextFrontLeftTile.setEnableMove(true);
                             nextFrontRightTile.setEnableMove(true);
                         }
@@ -167,26 +166,26 @@ public class Game extends JFrame{
             } else {
                 if (col == 0) {
                     Tile backRightTile = board.getTile(row - 1, col + 1);
-                    if (backRightTile.hasPiece() == false) {
+                    if (!backRightTile.hasPiece()) {
                         backRightTile.setEnableMove(true);
                     } else {
-                        Piece checkPiece = board.getPiece(row+1, col+1);
-                        if (checkPiece.isWhite() == true) {
+                        Piece checkPiece = board.getPiece(row - 1, col + 1);
+                        if (checkPiece.isWhite()) {
                             Tile nextBackRightTile = board.getTile(row - 2, col + 2);
-                            if (nextBackRightTile.hasPiece() == false) {
+                            if (!nextBackRightTile.hasPiece()) {
                                 nextBackRightTile.setEnableMove(true);
                             }
                         }
                     }
                 } else if (col == 7) {
                     Tile backLeftTile = board.getTile(row - 1, col - 1);
-                    if (backLeftTile.hasPiece() == false) {
+                    if (!backLeftTile.hasPiece()) {
                         backLeftTile.setEnableMove(true);
                     } else {
                         Piece checkPiece = board.getPiece(row - 1, col - 1);
-                        if (checkPiece.isWhite() == true) {
-                            Tile nextBackLeftTile = board.getTile(row - 2, col + 2);
-                            if (nextBackLeftTile.hasPiece() == false) {
+                        if (checkPiece.isWhite()) {
+                            Tile nextBackLeftTile = board.getTile(row - 2, col - 2);
+                            if (!nextBackLeftTile.hasPiece()) {
                                 nextBackLeftTile.setEnableMove(true);
                             }
                         }
@@ -194,36 +193,36 @@ public class Game extends JFrame{
                 } else {
                     Tile backLeftTile = board.getTile(row - 1, col - 1);
                     Tile backRightTile = board.getTile(row - 1, col + 1);
-                    if (backLeftTile.hasPiece() == false && backRightTile.hasPiece() == false){
+                    if (!backLeftTile.hasPiece() && !backRightTile.hasPiece()){
                         backLeftTile.setEnableMove(true);
                         backRightTile.setEnableMove(true);
-                    } else if  (backLeftTile.hasPiece() == false && backRightTile.hasPiece() == true){
+                    } else if  (!backLeftTile.hasPiece() && backRightTile.hasPiece()){
                         Piece checkPiece = board.getPiece(row - 1, col + 1);
-                        if (checkPiece.isWhite() == true) {
+                        if (checkPiece.isWhite()) {
                             Tile nextBackRightTile = board.getTile(row - 2, col + 2);
-                            if (nextBackRightTile.hasPiece() == false) {
+                            if (!nextBackRightTile.hasPiece()) {
                                 backLeftTile.setEnableMove(true);
                                 nextBackRightTile.setEnableMove(true);
                             } 
                         }
                         backLeftTile.setEnableMove(true);
-                    } else if (backLeftTile.hasPiece() == true && backRightTile.hasPiece() == false) {
+                    } else if (backLeftTile.hasPiece() && !backRightTile.hasPiece()) {
                         Piece checkPiece = board.getPiece(row - 1, col - 1);
-                        if (checkPiece.isWhite() == true) {
-                            Tile nextBackLeftTile = board.getTile(row - 2, col + 2);
-                            if (nextBackLeftTile.hasPiece() == false) {
+                        if (checkPiece.isWhite()) {
+                            Tile nextBackLeftTile = board.getTile(row - 2, col - 2);
+                            if (!nextBackLeftTile.hasPiece()) {
                                 nextBackLeftTile.setEnableMove(true);
                                 backRightTile.setEnableMove(true);
                             }
                         }
                         backRightTile.setEnableMove(true);
                     } 
-                    else if (backLeftTile.hasPiece() == true && backRightTile.hasPiece() == true) {
+                    else if (backLeftTile.hasPiece() && backRightTile.hasPiece()) {
                         Tile nextFrontLeftTile = board.getTile(row+2, col-2);
                         Tile nextFrontRightTile = board.getTile(row+2, col+2);
                         Piece checkPiece1 = board.getPiece(row+2, col-2);
                         Piece checkPiece2 = board.getPiece(row+2, col+2);
-                        if (checkPiece1.isWhite() == false && checkPiece2.isWhite() == false) {
+                        if (!checkPiece1.isWhite() && !checkPiece2.isWhite()) {
                             nextFrontLeftTile.setEnableMove(true);
                             nextFrontRightTile.setEnableMove(true);
                         }
