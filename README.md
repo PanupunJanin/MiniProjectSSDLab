@@ -1,11 +1,13 @@
-## Checker SSDLab MiniProject
+# Checker SSDLab MiniProject
 
-#Members
+## Members
+
 1. 6410545568 Panupun Janin
 2. 6410545754 Tanabodee Yambangyang
 3. 6410546238 Maroj Thangthong
 
-#Instruction
+## Instruction
+
 Checkers is a strategy board game for two players which involves diagonal moves of uniform game pieces and mandatory captures by jumping over opponent pieces. 
 There are 4 important move rules which are:
 1. Checkers can only move diagonally on dark squares.
