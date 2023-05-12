@@ -126,7 +126,7 @@ public class Board {
                 } else {
                     Tile backLeftTile = getTile(row - 1, col - 1);
                     Tile backRightTile = getTile(row - 1, col + 1);
-                    Tile nextBackLeftTile = getTile(row - 2, col + 2);
+                    Tile nextBackLeftTile = getTile(row - 2, col - 2);
                     Tile nextBackRightTile = getTile(row - 2, col + 2);
                     if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
@@ -242,7 +242,7 @@ public class Board {
                 } else {
                     Tile backLeftTile = getTile(row + 1, col - 1);
                     Tile backRightTile = getTile(row + 1, col + 1);
-                    Tile nextBackLeftTile = getTile(row + 2, col + 2);
+                    Tile nextBackLeftTile = getTile(row + 2, col - 2);
                     Tile nextBackRightTile = getTile(row + 2, col + 2);
                     if (tileToMove == frontLeftTile && !tileToMove.hasPiece()) {
                         currentTile.removePiece();
