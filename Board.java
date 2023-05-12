@@ -93,23 +93,27 @@ public class Board {
                     }
                 } else if(tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col-1);
-                    currentTile.removePiece();
-                    frontLeftTile.removePiece();
-                    enemy.killed();
-                    nextFrontLeftTile.addPiece();
-                    piece.editRowCol(row+2, col-2);
-                    if(row+2 >= 7) {
-                        piece.crowned();
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontLeftTile.removePiece();
+                        enemy.killed();
+                        nextFrontLeftTile.addPiece();
+                        piece.editRowCol(row+2, col-2);
+                        if(row+2 >= 7) {
+                            piece.crowned();
+                        }
                     }
                 } else if(tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col+1);
-                    currentTile.removePiece();
-                    frontRightTile.removePiece();
-                    enemy.killed();
-                    nextFrontRightTile.addPiece();
-                    piece.editRowCol(row+2, col+2);
-                    if(row+2 >= 7) {
-                        piece.crowned();
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontRightTile.removePiece();
+                        enemy.killed();
+                        nextFrontRightTile.addPiece();
+                        piece.editRowCol(row+2, col+2);
+                        if(row+2 >= 7) {
+                            piece.crowned();
+                        }
                     }
                 }
             } else {
@@ -135,32 +139,40 @@ public class Board {
                     piece.editRowCol(row - 1, col + 1);
                 } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col-1);
-                    currentTile.removePiece();
-                    frontLeftTile.removePiece();
-                    enemy.killed();
-                    nextFrontLeftTile.addPiece();
-                    piece.editRowCol(row+2, col-2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontLeftTile.removePiece();
+                        enemy.killed();
+                        nextFrontLeftTile.addPiece();
+                        piece.editRowCol(row+2, col-2);
+                    }
                 } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col+1);
-                    currentTile.removePiece();
-                    frontRightTile.removePiece();
-                    enemy.killed();
-                    nextFrontRightTile.addPiece();
-                    piece.editRowCol(row+2, col+2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontRightTile.removePiece();
+                        enemy.killed();
+                        nextFrontRightTile.addPiece();
+                        piece.editRowCol(row+2, col+2);
+                    }
                 }else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col-1);
-                    currentTile.removePiece();
-                    backLeftTile.removePiece();
-                    enemy.killed();
-                    nextBackLeftTile.addPiece();
-                    piece.editRowCol(row-2, col-2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        backLeftTile.removePiece();
+                        enemy.killed();
+                        nextBackLeftTile.addPiece();
+                        piece.editRowCol(row-2, col-2);
+                    }
                 } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col+1);
-                    currentTile.removePiece();
-                    backRightTile.removePiece();
-                    enemy.killed();
-                    nextBackRightTile.addPiece();
-                    piece.editRowCol(row-2, col+2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        backRightTile.removePiece();
+                        enemy.killed();
+                        nextBackRightTile.addPiece();
+                        piece.editRowCol(row-2, col+2);
+                    }
                 }
             }
         } else {
@@ -185,23 +197,27 @@ public class Board {
                     }
                 } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col-1);
-                    currentTile.removePiece();
-                    frontLeftTile.removePiece();
-                    enemy.killed();
-                    nextFrontLeftTile.addPiece();
-                    piece.editRowCol(row - 2, col - 2);
-                    if (row - 2 <= 0) {
-                        piece.crowned();
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontLeftTile.removePiece();
+                        enemy.killed();
+                        nextFrontLeftTile.addPiece();
+                        piece.editRowCol(row - 2, col - 2);
+                        if (row - 2 <= 0) {
+                            piece.crowned();
+                        }
                     }
                 } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col+1);
-                    currentTile.removePiece();
-                    frontRightTile.removePiece();
-                    enemy.killed();
-                    nextFrontRightTile.addPiece();
-                    piece.editRowCol(row - 2, col + 2);
-                    if (row - 2 <= 0) {
-                        piece.crowned();
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontRightTile.removePiece();
+                        enemy.killed();
+                        nextFrontRightTile.addPiece();
+                        piece.editRowCol(row - 2, col + 2);
+                        if (row - 2 <= 0) {
+                            piece.crowned();
+                        }
                     }
                 }
             } else {
@@ -227,32 +243,40 @@ public class Board {
                     piece.editRowCol(row + 1, col + 1);
                 } else if (tileToMove == nextFrontLeftTile && frontLeftTile.hasPiece() && !nextFrontLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col-1);
-                    currentTile.removePiece();
-                    frontLeftTile.removePiece();
-                    enemy.killed();
-                    nextFrontLeftTile.addPiece();
-                    piece.editRowCol(row - 2, col - 2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontLeftTile.removePiece();
+                        enemy.killed();
+                        nextFrontLeftTile.addPiece();
+                        piece.editRowCol(row - 2, col - 2);
+                    }
                 } else if (tileToMove == nextFrontRightTile && frontRightTile.hasPiece() && !nextFrontRightTile.hasPiece()) {
                     Piece enemy = getPiece(row-1, col+1);
-                    currentTile.removePiece();
-                    frontRightTile.removePiece();
-                    enemy.killed();
-                    nextFrontRightTile.addPiece();
-                    piece.editRowCol(row - 2, col + 2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        frontRightTile.removePiece();
+                        enemy.killed();
+                        nextFrontRightTile.addPiece();
+                        piece.editRowCol(row - 2, col + 2);
+                    }
                 } else if (tileToMove == nextBackLeftTile && backLeftTile.hasPiece() && !nextBackLeftTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col-1);
-                    currentTile.removePiece();
-                    backLeftTile.removePiece();
-                    enemy.killed();
-                    nextBackLeftTile.addPiece();
-                    piece.editRowCol(row + 2, col - 2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        backLeftTile.removePiece();
+                        enemy.killed();
+                        nextBackLeftTile.addPiece();
+                        piece.editRowCol(row + 2, col - 2);
+                    }
                 } else if (tileToMove == nextBackRightTile && backRightTile.hasPiece() && !nextBackRightTile.hasPiece()) {
                     Piece enemy = getPiece(row+1, col+1);
-                    currentTile.removePiece();
-                    backRightTile.removePiece();
-                    enemy.killed();
-                    nextBackRightTile.addPiece();
-                    piece.editRowCol(row + 2, col + 2);
+                    if(piece.isWhite() != enemy.isWhite()) {
+                        currentTile.removePiece();
+                        backRightTile.removePiece();
+                        enemy.killed();
+                        nextBackRightTile.addPiece();
+                        piece.editRowCol(row + 2, col + 2);
+                    }
                 }
             }
         }
