@@ -22,7 +22,7 @@ public class Board {
             return null;
         }
         for(int i=0; i < maxPieceAmount; i++) {
-            if(pieces[i].currentRow == row && pieces[i].currentCol == col) {
+            if(pieces[i].currentRow() == row && pieces[i].currentCol() == col) {
                 return pieces[i];
             }
         }
