@@ -47,7 +47,9 @@ public class Game extends JFrame{
                     System.out.println("Has piece: " + tile.hasPiece());
                     if(tile.hasPiece()){
                         System.out.println("Piece is white: " + piece.isWhite());
-
+                        System.out.println("Current piece row: " + piece.row());
+                        System.out.println("Current piece col: " + piece.col());
+                        System.out.println("Current piece num: " + piece.num());
                     }
                 }
             });
@@ -82,9 +84,9 @@ public class Game extends JFrame{
             Tile tile = board.getTile(row, col);
             Piece piece = board.getPiece(row, col);
             if (tile.hasPiece()) {
-                if (piece.isWhite()) {
+                if (piece.isWhite() && piece.isAlive()) {
                     g.drawImage(imagePieceWhite, x, y, TileSize, TileSize, null, null);
-                } else {
+                } else if (!piece.isWhite() && piece.isAlive()){
                     g.drawImage(imagePieceBlack, x, y, TileSize, TileSize, null, null);
                 }
             }
