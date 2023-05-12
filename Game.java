@@ -203,8 +203,8 @@ public class Game extends JFrame{
                     } else if (frontRightTile.hasPiece() && frontLeftTile.hasPiece()) {
                         Tile nextFrontLeftTile = board.getTile(row+2, col-2);
                         Tile nextFrontRightTile = board.getTile(row+2, col+2);
-                        Piece checkPiece1 = board.getPiece(row+2, col-2);
-                        Piece checkPiece2 = board.getPiece(row+2, col+2);
+                        Piece checkPiece1 = board.getPiece(row+1, col-1);
+                        Piece checkPiece2 = board.getPiece(row+1, col+1);
                         if (!checkPiece1.isWhite() && !checkPiece2.isWhite()) {
                             nextFrontLeftTile.setEnableMove(true);
                             nextFrontRightTile.setEnableMove(true);
@@ -268,8 +268,8 @@ public class Game extends JFrame{
                     else if (backLeftTile.hasPiece() && backRightTile.hasPiece()) {
                         Tile nextFrontLeftTile = board.getTile(row+2, col-2);
                         Tile nextFrontRightTile = board.getTile(row+2, col+2);
-                        Piece checkPiece1 = board.getPiece(row+2, col-2);
-                        Piece checkPiece2 = board.getPiece(row+2, col+2);
+                        Piece checkPiece1 = board.getPiece(row+1, col-1);
+                        Piece checkPiece2 = board.getPiece(row+1, col+1);
                         if (!checkPiece1.isWhite() && !checkPiece2.isWhite()) {
                             nextFrontLeftTile.setEnableMove(true);
                             nextFrontRightTile.setEnableMove(true);
