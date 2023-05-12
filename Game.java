@@ -24,8 +24,8 @@ public class Game extends JFrame{
         private Image imageKingPieceWhite;
         private Image imagePieceBlack;
         private Image imageKingPieceBlack;
-        private static int currentRow;
-        private static int currentCol;
+        private int currentRow = 0;
+        private int currentCol = 1;
 
         public GameUI() {
             setPreferredSize(new Dimension(boardSize * TileSize, boardSize * TileSize));
