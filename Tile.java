@@ -4,7 +4,7 @@ public class Tile {
     private boolean canMove;
     public Tile() {
         hasPiece = false;
-        isInPlay = false; // In checker, the tiles that will be used is only black tiles.
+        isInPlay = false; // In checker, the piece would only be on black tiles.
         canMove = false;
     }
     public boolean hasPiece() {
