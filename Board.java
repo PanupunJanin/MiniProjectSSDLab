@@ -69,37 +69,44 @@ public class Board {
         }
     }
     public void movePiece(int row, int col, Tile tileToMove) {
+        Tile currentTile = getTile(row, col);
         Piece piece = getPiece(row, col);
         if(piece.isWhite()){
             Tile frontLeftTile = getTile(row+1, col-1);
             Tile frontRightTile = getTile(row+1, col+1);
             if(!piece.isKing()) {
                 if(tileToMove == frontLeftTile) {
-                    frontLeftTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row+1, col-1);
+                    if(row+1 >= 7) {
+                        piece.crowned();
+                    }
                 } else if(tileToMove == frontRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row+1, col+1);
+                    if(row+1 >= 7) {
+                        piece.crowned();
+                    }
                 }
             } else {
                 Tile backLeftTile = getTile(row - 1, col - 1);
                 Tile backRightTile = getTile(row - 1, col + 1);
                 if (tileToMove == frontLeftTile) {
-                    frontLeftTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row + 1, col - 1);
                 } else if (tileToMove == frontRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row + 1, col + 1);
                 } else if (tileToMove == backLeftTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row - 1, col - 1);
                 } else if (tileToMove == backRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row - 1, col + 1);
                 }
@@ -109,31 +116,37 @@ public class Board {
             Tile frontRightTile = getTile(row-1, col+1);
             if(!piece.isKing()) {
                 if(tileToMove == frontLeftTile) {
-                    frontLeftTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row-1, col-1);
+                    if(row-1 <= 0) {
+                        piece.crowned();
+                    }
                 } else if(tileToMove == frontRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row-1, col+1);
+                    if(row-1 <= 0) {
+                        piece.crowned();
+                    }
                 }
             } else {
                 Tile backLeftTile = getTile(row + 1, col - 1);
                 Tile backRightTile = getTile(row + 1, col + 1);
                 if (tileToMove == frontLeftTile) {
-                    frontLeftTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row - 1, col - 1);
                 } else if (tileToMove == frontRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row - 1, col + 1);
                 } else if (tileToMove == backLeftTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row + 1, col - 1);
                 } else if (tileToMove == backRightTile) {
-                    frontRightTile.removePiece();
+                    currentTile.removePiece();
                     tileToMove.addPiece();
                     piece.editRowCol(row + 1, col + 1);
                 }
