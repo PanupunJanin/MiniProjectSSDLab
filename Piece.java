@@ -5,12 +5,21 @@ public class Piece {
     private boolean isKing;
     private boolean isWhite;
     private boolean canMove;
-    public Piece() {
+    public int currentRow;
+    public int currentCol;
+    private final int pieceNumber;
+    public Piece(int row, int col, int number) {
+        currentRow = row;
+        currentCol = col;
+        pieceNumber = number;
         isAlive = true;
         isKing = false;
         isWhite = true;
         canMove = false;
     }
+    public int row() { return currentRow; }
+    public int col() { return currentCol; }
+    public int num() { return pieceNumber; }
     public boolean isAlive() { return isAlive; }
     public boolean isKing() { return isKing; }
     public boolean isWhite() {
