@@ -61,6 +61,7 @@ public class Game extends JFrame{
                         int tileCol = e.getX() / TileSize;
                         Tile gotoTile = board.getTile(tileRow, tileCol);
                         board.movePiece(currentRow, currentCol, gotoTile);
+                        repaint();
                     }
                 }
             });
@@ -97,8 +98,14 @@ public class Game extends JFrame{
             if (tile.hasPiece()) {
                 if (piece.isWhite() && piece.isAlive()) {
                     g.drawImage(imagePieceWhite, x, y, TileSize, TileSize, null, null);
+                    if (piece.isKing()) {
+                        g.drawImage(imageKingPieceWhite, x, y, TileSize, TileSize, null, null);
+                    }
                 } else if (!piece.isWhite() && piece.isAlive()){
                     g.drawImage(imagePieceBlack, x, y, TileSize, TileSize, null, null);
+                    if (piece.isKing()) {
+                        g.drawImage(imageKingPieceBlack, x, y, TileSize, TileSize, null, null);
+                    }
                 }
             }
         }
