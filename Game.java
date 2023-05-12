@@ -24,8 +24,8 @@ public class Game extends JFrame{
         private Image imageKingPieceWhite;
         private Image imagePieceBlack;
         private Image imageKingPieceBlack;
-        private static int currentRow;
-        private static int currentCol;
+        private static int currentRow = 0;
+        private static int currentCol = 1;
 
         public GameUI() {
             setPreferredSize(new Dimension(boardSize * TileSize, boardSize * TileSize));
@@ -52,6 +52,8 @@ public class Game extends JFrame{
                         System.out.println("Piece is king: " + piece.isKing());
                         System.out.println("Current piece row, col: " + piece.currentRow() +", "+ piece.currentCol());
                         System.out.println("Current piece num: " + piece.pieceNumber());
+                        System.out.println("------------------------------------------------");
+                        Piece selectedPiece = board.getPiece(currentRow, currentCol);
                         currentRow = e.getY() / TileSize;
                         currentCol = e.getX() / TileSize;
                     } else {
