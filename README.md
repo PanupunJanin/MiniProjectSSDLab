@@ -21,3 +21,5 @@ The goal is mainly for both player to try to win as black player and for white p
 
 In this code, we run the game by running main part of game.java and play checker as 2 loacal players.
 The game will end when one side is out of pieces to play.
+
+The git repository for this project is https://github.com/PanupunJanin/MiniProjectSSDLab

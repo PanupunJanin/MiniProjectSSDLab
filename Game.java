@@ -278,7 +278,6 @@ public class Game extends JFrame{
                 }
             }
         }
-
         private void ResetTiles() {
             for (int row = 0; row < boardSize; row++) {
                 for (int col = 0; col < boardSize; col++) {
@@ -287,7 +286,6 @@ public class Game extends JFrame{
                 }
             }
         }
-
         private void paintPiece(Graphics g, int row, int col) {
             int x = col * TileSize;
             int y = row * TileSize;
@@ -308,7 +306,6 @@ public class Game extends JFrame{
                 }
             }
         }
-
         private void paint_winner(Graphics g) {
             if(board.checkGameEnd() != 0){
             g.setColor(Color.red);
